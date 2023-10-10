@@ -16,4 +16,4 @@ func _on_host_pressed():
 func _add_player(id = 1):
 	var player_instance = player.instantiate()
 	player_instance.name = str(id)
-	call_deferred("add_child", player_instance)
+	$SpawnPoint.add_child(player_instance)
