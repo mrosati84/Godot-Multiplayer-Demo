@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcbf4v0xgq1cv"]
+[gd_scene load_steps=4 format=3 uid="uid://dcbf4v0xgq1cv"]
 
+[ext_resource type="Script" path="res://bullet.gd" id="1_lslly"]
 [ext_resource type="Texture2D" uid="uid://b1ee4shhvhdsq" path="res://icon.svg" id="1_vxidl"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7eipt"]
@@ -13,11 +14,20 @@ properties/1/sync = true
 properties/1/watch = false
 
 [node name="Bullet" type="Node2D"]
+script = ExtResource("1_lslly")
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = 1.5708
 scale = Vector2(0.05, 0.2)
 texture = ExtResource("1_vxidl")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_7eipt")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
