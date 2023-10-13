@@ -5,13 +5,15 @@ extends Node
 @onready var seq = 0
 
 @rpc("any_peer")
-func fire(pos, rot):
+func fire():
 	var sender_id = multiplayer.get_remote_sender_id()
+	var sender = get_node("/root/Multiplayer/SpawnPoint/" + str(sender_id))
+
 	var b = bullet.instantiate()
 	b.name = str(sender_id) + str(seq)
 	seq += 1
-	b.global_position = pos
-	b.global_rotation = rot
 	
+	b.transform = sender.transform
+
 	spawn_point.add_child(b)
 	print("FIRE!")
