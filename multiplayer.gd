@@ -2,6 +2,9 @@ extends Node2D
 
 const PlayerScene = preload("res://player.tscn")
 
+const PORT = 4242
+const ADDR = "127.0.0.1"
+
 func _ready():
 	# Start the server if Godot is passed the "--server" argument,
 	# and start a client otherwise.
@@ -10,18 +13,18 @@ func _ready():
 
 func _on_join_pressed():
 	start_network(false)
+	$Join.hide()
 
 func start_network(server: bool):
 	var peer = ENetMultiplayerPeer.new()
 	if server:
-		multiplayer.peer_connected.connect(self.create_player)
-		multiplayer.peer_disconnected.connect(self.destroy_player)
+		multiplayer.peer_connected.connect(create_player)
+		multiplayer.peer_disconnected.connect(destroy_player)
 		
-		peer.create_server(4242)
-		print('server listening on localhost 4242')
+		peer.create_server(PORT)
+		print('server listening on {addr}:{port}'.format({"addr": ADDR, "port": PORT}))
 	else:
-		var targetIP = "localhost"
-		peer.create_client(targetIP, 4242)
+		peer.create_client(ADDR, PORT)
 
 	multiplayer.multiplayer_peer = peer
 

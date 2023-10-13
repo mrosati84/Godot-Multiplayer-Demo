@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://whe63tfvdrxk"]
+[gd_scene load_steps=3 format=3 uid="uid://whe63tfvdrxk"]
 
 [ext_resource type="Script" path="res://multiplayer.gd" id="1_m18jo"]
+[ext_resource type="PackedScene" uid="uid://crihwelt7rw44" path="res://components/server.tscn" id="2_uxokr"]
 
 [node name="Multiplayer" type="Node2D"]
 script = ExtResource("1_m18jo")
+
+[node name="Server" parent="." instance=ExtResource("2_uxokr")]
 
 [node name="Join" type="Button" parent="."]
 offset_left = 22.0
