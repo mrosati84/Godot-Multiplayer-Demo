@@ -34,9 +34,12 @@ func create_player(id):
 
 	# Set the name, so players can figure out their local authority
 	p.name = str(id)
+	p.transform = $SpawnPoint.transform
 	
 	$SpawnPoint.add_child(p)
+	print("Player " + p.name + " joined")
 
 func destroy_player(id):
 	# Delete this peer's node.
 	$SpawnPoint.get_node(str(id)).queue_free()
+	print("Player " + str(id) + " disconnected")
