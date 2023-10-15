@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var life_label = get_node("/root/World/UI/PanelContainer/GridContainer/Life")
 @onready var id_label = get_node("/root/World/UI/PanelContainer/GridContainer/ID")
 @onready var restart = get_node("/root/World/UI/PanelContainer/GridContainer/Restart")
+@onready var players_list = get_node("/root/World/UI/Players/List")
 
 const SERVER : int = 1
 
@@ -19,8 +20,7 @@ func _ready():
 	
 	if is_multiplayer_authority():
 		life_label.text = str("Life: " + str(life))
-
-	global_position = Vector2.ZERO
+		global_position = Vector2(0, 0)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("fire") and is_multiplayer_authority() and alive:
