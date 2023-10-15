@@ -15,8 +15,10 @@ func _enter_tree():
 
 func _ready():
 	id_label.text = str(multiplayer.get_unique_id())
-	life_label.text = str("Life: " + str(life))
 	
+	if is_multiplayer_authority():
+		life_label.text = str("Life: " + str(life))
+
 	global_position = Vector2.ZERO
 
 func _process(_delta):
