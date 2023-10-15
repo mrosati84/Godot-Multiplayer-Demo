@@ -34,4 +34,18 @@ visible = false
 layout_mode = 2
 text = "Restart"
 
+[node name="Players" type="MarginContainer" parent="."]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 32
+
+[node name="List" type="ItemList" parent="Players"]
+layout_mode = 2
+
 [connection signal="pressed" from="PanelContainer/GridContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/Restart" to="." method="_on_restart_pressed"]
