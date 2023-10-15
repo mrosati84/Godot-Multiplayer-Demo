@@ -43,6 +43,17 @@ func die():
 	if is_multiplayer_authority():
 		restart.show()
 
+@rpc("any_peer", "call_local")
+func resurrect():
+	show()
+	$CollisionShape2D.disabled = false
+	alive = true
+	life = 100
+	
+	if is_multiplayer_authority():
+		life_label.text = str(life)
+		restart.hide()
+
 @rpc("any_peer")
 func damage(value):
 	life -= value

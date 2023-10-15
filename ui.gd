@@ -5,4 +5,7 @@ func _on_join_pressed():
 	$PanelContainer/GridContainer/Join.hide()
 
 func _on_restart_pressed():
-	pass
+	var id = multiplayer.get_unique_id()
+	var player = get_node("/root/World/SpawnPoint/" + str(id))
+	
+	player.rpc("resurrect")
