@@ -5,10 +5,9 @@ extends CharacterBody2D
 @export var life : int = 100
 @export var alive : bool = true
 
-@onready var life_label = get_node("/root/Multiplayer/UI/PanelContainer/GridContainer/Life")
-@onready var id_label = get_node("/root/Multiplayer/UI/PanelContainer/GridContainer/ID")
-@onready var restart = get_node("/root/Multiplayer/UI/PanelContainer/GridContainer/Restart")
-@onready var server = get_node("/root/Multiplayer/Server")
+@onready var life_label = get_node("/root/World/UI/PanelContainer/GridContainer/Life")
+@onready var id_label = get_node("/root/World/UI/PanelContainer/GridContainer/ID")
+@onready var restart = get_node("/root/World/UI/PanelContainer/GridContainer/Restart")
 
 const SERVER : int = 1
 
@@ -25,7 +24,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("fire") and is_multiplayer_authority() and alive:
-		server.rpc_id(SERVER, "fire")
+		ServerFunctions.rpc_id(SERVER, "fire")
 
 func _physics_process(_delta):
 	if is_multiplayer_authority() and alive:

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://whe63tfvdrxk"]
+
+[ext_resource type="PackedScene" uid="uid://c1l8pj1hg45ra" path="res://ui.tscn" id="2_pcn1c"]
+
+[node name="World" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("2_pcn1c")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn", "res://bullet.tscn")
+spawn_path = NodePath("../SpawnPoint")
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(169, 273)

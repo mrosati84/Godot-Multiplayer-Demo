@@ -1,7 +1,7 @@
 extends Node
 
 @onready var bullet = load("res://bullet.tscn")
-@onready var spawn_point = get_node("/root/Multiplayer/SpawnPoint")
+@onready var spawn_point = get_node("/root/World/SpawnPoint")
 @onready var seq = 0
 
 @rpc("any_peer")

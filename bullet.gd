@@ -4,7 +4,7 @@ extends Node2D
 @export var damage : float = 20.0
 
 @onready var up = Vector2.RIGHT.rotated(rotation)
-@onready var spawn_point = get_node("/root/Multiplayer/SpawnPoint")
+@onready var spawn_point = get_node("/root/World/SpawnPoint")
 
 # contains the name of the peer that has originated the bullet by shooting
 var sender : String
