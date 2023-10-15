@@ -18,7 +18,7 @@ grow_horizontal = 2
 
 [node name="GridContainer" type="GridContainer" parent="UI/PanelContainer"]
 layout_mode = 2
-columns = 3
+columns = 4
 
 [node name="ID" type="Label" parent="UI/PanelContainer/GridContainer"]
 layout_mode = 2
@@ -33,6 +33,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "Join"
+
+[node name="Restart" type="Button" parent="UI/PanelContainer/GridContainer"]
+visible = false
+layout_mode = 2
+text = "Restart"
 
 [node name="Server" parent="." instance=ExtResource("2_uxokr")]
 
