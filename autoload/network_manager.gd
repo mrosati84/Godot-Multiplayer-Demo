@@ -6,6 +6,7 @@ const PORT = 4242
 const ADDR = "127.0.0.1"
 
 @onready var spawn_point = get_node("/root/World/SpawnPoint")
+@onready var address = get_node("/root/World/UI/PanelContainer/GridContainer/Address")
 
 var players_list = []
 
@@ -24,7 +25,8 @@ func start_network(server: bool):
 		peer.create_server(PORT)
 		print('server listening on {addr}:{port}'.format({"addr": ADDR, "port": PORT}))
 	else:
-		peer.create_client(ADDR, PORT)
+		var address_parts = address.text.strip_edges().split(":")
+		peer.create_client(address_parts[0], int(address_parts[1]))
 
 	multiplayer.multiplayer_peer = peer
 

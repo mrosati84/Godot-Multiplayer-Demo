@@ -3,6 +3,7 @@ extends CanvasLayer
 func _on_join_pressed():
 	NetworkManager.start_network(false)
 	$PanelContainer/GridContainer/Join.hide()
+	$PanelContainer/GridContainer/Address.hide()
 
 func _on_restart_pressed():
 	var id = multiplayer.get_unique_id()

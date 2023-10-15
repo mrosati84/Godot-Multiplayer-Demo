@@ -51,7 +51,7 @@ func resurrect():
 	life = 100
 	
 	if is_multiplayer_authority():
-		life_label.text = str(life)
+		life_label.text = "Life: " + str(life)
 		restart.hide()
 
 @rpc("any_peer")

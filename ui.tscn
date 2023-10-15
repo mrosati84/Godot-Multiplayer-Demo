@@ -17,16 +17,28 @@ columns = 4
 
 [node name="ID" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
 text = "xxxxxx"
+vertical_alignment = 1
 
 [node name="Life" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 14
 text = "Life: xxx"
+vertical_alignment = 1
+
+[node name="Address" type="TextEdit" parent="PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "127.0.0.1:4242"
 
 [node name="Join" type="Button" parent="PanelContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 14
 text = "Join"
 
 [node name="Restart" type="Button" parent="PanelContainer/GridContainer"]
