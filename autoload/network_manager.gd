@@ -32,7 +32,7 @@ func create_player(id):
 
 	# Set the name, so players can figure out their local authority
 	p.name = str(id)
-	p.transform = spawn_point.transform
+	p.global_position = Vector2(0, 0)
 	
 	spawn_point.add_child(p)
 	print("Player " + p.name + " joined")
