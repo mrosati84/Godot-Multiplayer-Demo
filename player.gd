@@ -49,3 +49,9 @@ func damage(value):
 	life_label.text = str("Life: " + str(life))
 	if life <= 0:
 		die.rpc()
+
+@rpc("any_peer", "call_local")
+func update_player_list(players):
+	players_list.clear()
+	for p in players:
+		players_list.add_item(p)
