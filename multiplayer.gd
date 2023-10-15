@@ -13,7 +13,7 @@ func _ready():
 
 func _on_join_pressed():
 	start_network(false)
-	$Join.hide()
+	$UI/PanelContainer/GridContainer/Join.hide()
 
 func start_network(server: bool):
 	var peer = ENetMultiplayerPeer.new()

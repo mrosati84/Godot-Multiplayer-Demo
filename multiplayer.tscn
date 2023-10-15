@@ -6,14 +6,35 @@
 [node name="Multiplayer" type="Node2D"]
 script = ExtResource("1_m18jo")
 
-[node name="Server" parent="." instance=ExtResource("2_uxokr")]
+[node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Join" type="Button" parent="."]
-offset_left = 22.0
-offset_top = 259.0
-offset_right = 60.0
-offset_bottom = 290.0
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="ID" type="Label" parent="UI/PanelContainer/GridContainer"]
+layout_mode = 2
+text = "xxxxxx"
+
+[node name="Life" type="Label" parent="UI/PanelContainer/GridContainer"]
+layout_mode = 2
+text = "Life: xxx"
+
+[node name="Join" type="Button" parent="UI/PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 text = "Join"
+
+[node name="Server" parent="." instance=ExtResource("2_uxokr")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player.tscn", "res://bullet.tscn")
@@ -22,4 +43,4 @@ spawn_path = NodePath("../SpawnPoint")
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2(169, 273)
 
-[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/GridContainer/Join" to="." method="_on_join_pressed"]

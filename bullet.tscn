@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcbf4v0xgq1cv"]
+[gd_scene load_steps=5 format=3 uid="uid://dcbf4v0xgq1cv"]
 
 [ext_resource type="Script" path="res://bullet.gd" id="1_lslly"]
 [ext_resource type="Texture2D" uid="uid://b1ee4shhvhdsq" path="res://icon.svg" id="1_vxidl"]
@@ -13,7 +13,10 @@ properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
 
-[node name="Bullet" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubpb2"]
+size = Vector2(24, 6)
+
+[node name="Bullet" type="Area2D"]
 script = ExtResource("1_lslly")
 
 [node name="Icon" type="Sprite2D" parent="."]
@@ -30,4 +33,8 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ubpb2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

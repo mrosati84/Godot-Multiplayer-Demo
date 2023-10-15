@@ -1,15 +1,27 @@
 extends Node2D
 
-@onready var up = Vector2.RIGHT.rotated(rotation)
+@export var speed : float = 300.0
+@export var damage : float = 20.0
 
-func _ready():
-	if is_multiplayer_authority():
-		print("I am the authority " + str(multiplayer.get_unique_id()))
-	
+@onready var up = Vector2.RIGHT.rotated(rotation)
+@onready var spawn_point = get_node("/root/Multiplayer/SpawnPoint")
+
+var sender : String
+
 func _physics_process(delta):
-	if multiplayer.get_unique_id() == 1:
-		position += up * 100 * delta
+	if multiplayer.is_server():
+		position += up * speed * delta
 
 func _on_timer_timeout():
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.is_server():
+		despawn.rpc()
+
+func _on_body_entered(body):
+	if multiplayer.is_server():
+		print("Sono il server, e " + body.name + " è stato colpito da " + sender)
+		spawn_point.get_node(str(body.name)).rpc_id(int(str(body.name)), "damage", damage)
 		call_deferred("queue_free")
+
+@rpc("any_peer", "call_local")
+func despawn():
+	call_deferred("queue_free")
