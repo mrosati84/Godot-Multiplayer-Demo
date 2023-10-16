@@ -13,7 +13,7 @@ grow_horizontal = 2
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer"]
 layout_mode = 2
-columns = 4
+columns = 6
 
 [node name="ID" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
@@ -32,6 +32,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
+text = "127.0.0.1:4242"
 placeholder_text = "127.0.0.1:4242"
 
 [node name="Join" type="Button" parent="PanelContainer/GridContainer"]
@@ -45,6 +46,10 @@ text = "Join"
 visible = false
 layout_mode = 2
 text = "Restart"
+
+[node name="Ping" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "0 ms"
 
 [node name="Players" type="MarginContainer" parent="."]
 anchors_preset = 11
