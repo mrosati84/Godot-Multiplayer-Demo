@@ -32,6 +32,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
+text = "5.249.159.122:4242"
 placeholder_text = "127.0.0.1:4242"
 
 [node name="Join" type="Button" parent="PanelContainer/GridContainer"]
