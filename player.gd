@@ -57,9 +57,13 @@ func resurrect():
 @rpc("any_peer")
 func damage(value):
 	life -= value
-	life_label.text = str("Life: " + str(life))
+	
 	if life <= 0:
+		life = 0
+		life_label.text = str("Life: " + str(life))
 		die.rpc()
+	else:
+		life_label.text = str("Life: " + str(life))
 
 @rpc("any_peer", "call_local")
 func update_player_list(players):
