@@ -19,12 +19,13 @@ func _on_timer_timeout():
 
 func _on_body_entered(body):
 	if multiplayer.is_server():
-		print("I am the server, and " + body.name + " has been hit by " + sender)
+		print("[SERVER] HIT! bullet " + sender + " -> " + body.name)
 		var target = spawn_point.get_node(str(body.name))
 		var target_id = int(str(target.name))
 		
-		target.rpc_id(target_id, "damage", damage)
-		despawn_bullet.rpc()
+		if target.name != sender:
+			target.rpc_id(target_id, "damage", damage)
+			despawn_bullet.rpc()
 
 @rpc("any_peer", "call_local")
 func despawn_bullet():

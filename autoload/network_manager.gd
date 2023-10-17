@@ -27,7 +27,7 @@ func start_network(server: bool):
 		multiplayer.peer_disconnected.connect(destroy_player)
 		
 		peer.create_server(PORT)
-		print('server listening on {addr}:{port}'.format({"addr": ADDR, "port": PORT}))
+		print('[SERVER] Listening on {addr}:{port}'.format({"addr": ADDR, "port": PORT}))
 	else:
 		var address_parts = address.text.strip_edges().split(":")
 		peer.create_client(address_parts[0], int(address_parts[1]))
@@ -78,17 +78,8 @@ func create_player(id = -1):
 	
 	ServerFunctions.update_list.rpc(players_list)
 	
-#	print("id")
-#	print(id)
-#	print("peer.get_unique_id()")
-#	print(peer.get_unique_id())
-#	print("get_tree().get_multiplayer().get_unique_id()")
-#	print(get_tree().get_multiplayer().get_unique_id())
-	
-	if id != peer.get_unique_id():
-		p.add_to_group("enemies")
-		print("aggiunto al gruppo dei nemici")
-		
+	p.add_to_group("players")
+
 	spawn_point.add_child(p)
 	
 	print("Player " + p.name + " joined")
@@ -102,8 +93,7 @@ func destroy_player(id):
 	
 	ServerFunctions.update_list.rpc(players_list)
 	
-	if id != peer.get_unique_id():
-		spawn_point.get_node(str(id)).remove_from_group("enemies")
+	spawn_point.get_node(str(id)).remove_from_group("players")
 	# Delete this peer's node.
 	spawn_point.get_node(str(id)).queue_free()
 

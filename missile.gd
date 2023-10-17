@@ -10,22 +10,22 @@ extends Node2D
 var sender : String
 
 var target_enemy = null
+var last_direction = Vector2.ZERO
 
 func _ready():
 	select_random_enemy()
 
 func select_random_enemy():
-	var enemies = get_tree().get_nodes_in_group("enemies") # Ottieni tutti i nodi nel gruppo "enemies"
+	var players = get_tree().get_nodes_in_group("players")
 	
-	if enemies.size() > 0:
-		target_enemy = enemies[randi() % enemies.size()] # Scegli un nemico casuale dalla lista
+	if players.size() > 0:
+		target_enemy = players[randi() % players.size()] # Scegli un nemico casuale dalla lista
 
 func _physics_process(delta):
 	if multiplayer.is_server():
 		# Controlla se l'obiettivo esiste e fa ancora parte dell'albero della scena		
-		# se è vivo e che non sia chi ha sparato
+		# se è vivo e che non sia chi ha sparato il missile
 		if target_enemy \
-		and target_enemy.is_inside_tree() \
 		and target_enemy.alive \
 		and target_enemy.name != sender: 
 			var direction = (target_enemy.global_position - global_position).normalized()
@@ -34,8 +34,12 @@ func _physics_process(delta):
 			# il missile segue l'obiettivo
 			rotation = angle_to_target
 			position += direction * speed * delta
+			
+			last_direction = direction # Aggiorna l'ultima direzione con la direzione corrente
 		else:
 			select_random_enemy() # Seleziona un nuovo nemico se l'obiettivo attuale non è valido
+			
+			position += last_direction * speed * delta
 			
 			#@TODO
 			# Fai esplodere il missile se nessun nemico è _più_ disponibile
@@ -48,12 +52,13 @@ func _on_timer_timeout():
 
 func _on_body_entered(body):
 	if multiplayer.is_server():
-		print("I am the server, and " + body.name + " has been hit with missile by " + sender)
+		print("[SERVER] HIT! Missile " + sender + " -> " + body.name)
 		var target = spawn_point.get_node(str(body.name))
 		var target_id = int(str(target.name))
 		
-		target.rpc_id(target_id, "damage", damage)
-		despawn_missile.rpc()
+		if target.name != sender:
+			target.rpc_id(target_id, "damage", damage)
+			despawn_missile.rpc()
 
 @rpc("any_peer", "call_local")
 func despawn_missile():
