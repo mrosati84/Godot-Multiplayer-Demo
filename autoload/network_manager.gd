@@ -80,7 +80,6 @@ func create_player(id):
 
 func destroy_player(id):
 	# remove the player from the list
-	
 	for i in range(players_list.size()):
 		if players_list[i] == str(id):
 			players_list.remove_at(i)
@@ -90,5 +89,7 @@ func destroy_player(id):
 	
 	# Delete this peer's node.
 	spawn_point.get_node(str(id)).queue_free()
+	if ping_timer != null:
+		ping_timer.queue_free()
 	
 	print("Player " + str(id) + " disconnected")
