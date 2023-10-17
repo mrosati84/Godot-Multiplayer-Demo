@@ -26,6 +26,7 @@ func _physics_process(delta):
 		# Controlla se l'obiettivo esiste e fa ancora parte dell'albero della scena		
 		# se è vivo e che non sia chi ha sparato il missile
 		if target_enemy \
+		and target_enemy.is_inside_tree() \
 		and target_enemy.alive \
 		and target_enemy.name != sender: 
 			var direction = (target_enemy.global_position - global_position).normalized()
@@ -39,7 +40,7 @@ func _physics_process(delta):
 		else:
 			select_random_enemy() # Seleziona un nuovo nemico se l'obiettivo attuale non è valido
 			
-			position += last_direction * speed * delta
+			position += last_direction if last_direction != Vector2.ZERO else up * speed * delta
 			
 			#@TODO
 			# Fai esplodere il missile se nessun nemico è _più_ disponibile
@@ -52,11 +53,12 @@ func _on_timer_timeout():
 
 func _on_body_entered(body):
 	if multiplayer.is_server():
-		print("[SERVER] HIT! Missile " + sender + " -> " + body.name)
 		var target = spawn_point.get_node(str(body.name))
 		var target_id = int(str(target.name))
 		
 		if target.name != sender:
+			print("[SERVER] HIT! Missile " + sender + " -> " + body.name)
+			
 			target.rpc_id(target_id, "damage", damage)
 			despawn_missile.rpc()
 
