@@ -15,7 +15,16 @@ grow_horizontal = 2
 layout_mode = 2
 columns = 7
 
+[node name="Nickname" type="LineEdit" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Nickname"
+max_length = 25
+expand_to_text_length = true
+caret_blink = true
+
 [node name="ID" type="Label" parent="PanelContainer/GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
@@ -23,13 +32,14 @@ theme_override_font_sizes/font_size = 14
 text = "1234567890"
 vertical_alignment = 1
 
-[node name="Address" type="TextEdit" parent="PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(200, 0)
+[node name="Address" type="LineEdit" parent="PanelContainer/GridContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_font_sizes/font_size = 14
 text = "127.0.0.1:4242"
 placeholder_text = "127.0.0.1:4242"
+max_length = 25
+expand_to_text_length = true
+caret_blink = true
 
 [node name="Life" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
@@ -44,6 +54,7 @@ layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 14
 text = "999 ms"
+vertical_alignment = 1
 
 [node name="Join" type="Button" parent="PanelContainer/GridContainer"]
 layout_mode = 2
