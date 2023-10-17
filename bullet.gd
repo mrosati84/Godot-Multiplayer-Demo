@@ -15,7 +15,7 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	if multiplayer.is_server():
-		despawn.rpc()
+		despawn_bullet.rpc()
 
 func _on_body_entered(body):
 	if multiplayer.is_server():
@@ -24,8 +24,8 @@ func _on_body_entered(body):
 		var target_id = int(str(target.name))
 		
 		target.rpc_id(target_id, "damage", damage)
-		despawn.rpc()
+		despawn_bullet.rpc()
 
 @rpc("any_peer", "call_local")
-func despawn():
+func despawn_bullet():
 	call_deferred("queue_free")

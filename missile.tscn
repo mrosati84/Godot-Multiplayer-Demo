@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://drt1vc6uqsokr"]
+
+[ext_resource type="Script" path="res://missile.gd" id="1_qwjga"]
+[ext_resource type="Texture2D" uid="uid://ixowhi5qy5ma" path="res://missile.jpeg" id="2_dh71x"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7eipt"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubpb2"]
+size = Vector2(24, 6)
+
+[node name="Missile" type="Area2D"]
+script = ExtResource("1_qwjga")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = 1.5708
+scale = Vector2(0.05, 0.2)
+texture = ExtResource("2_dh71x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7eipt")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ubpb2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -11,6 +11,9 @@ var players_list = []
 var ping_label
 var ping_timer
 
+var peer
+signal connection_ready
+
 func _ready():
 	# Start the server if Godot is passed the "--server" argument,
 	# and start a client otherwise.
@@ -18,7 +21,7 @@ func _ready():
 		start_network(true)
 
 func start_network(server: bool):
-	var peer = ENetMultiplayerPeer.new()
+	peer = ENetMultiplayerPeer.new()
 	if server:
 		multiplayer.peer_connected.connect(create_player)
 		multiplayer.peer_disconnected.connect(destroy_player)
@@ -41,6 +44,7 @@ func start_network(server: bool):
 		update_ping()
 		
 	multiplayer.multiplayer_peer = peer
+	emit_signal("connection_ready") # Emetti il segnale qui
 	
 func _on_ping_timer_timeout():
 	update_ping()
@@ -62,7 +66,7 @@ func calculate_ping(start_time):
 	ping_label.text = "Ping: " + str(ping) + " ms"
 #	print("Pong!"+ str(ping) +"ms")
 
-func create_player(id):
+func create_player(id = -1):
 	# Instantiate a new player for this client.
 	var p = player_scene.instantiate()
 
@@ -74,6 +78,17 @@ func create_player(id):
 	
 	ServerFunctions.update_list.rpc(players_list)
 	
+#	print("id")
+#	print(id)
+#	print("peer.get_unique_id()")
+#	print(peer.get_unique_id())
+#	print("get_tree().get_multiplayer().get_unique_id()")
+#	print(get_tree().get_multiplayer().get_unique_id())
+	
+	if id != peer.get_unique_id():
+		p.add_to_group("enemies")
+		print("aggiunto al gruppo dei nemici")
+		
 	spawn_point.add_child(p)
 	
 	print("Player " + p.name + " joined")
@@ -87,8 +102,11 @@ func destroy_player(id):
 	
 	ServerFunctions.update_list.rpc(players_list)
 	
+	if id != peer.get_unique_id():
+		spawn_point.get_node(str(id)).remove_from_group("enemies")
 	# Delete this peer's node.
 	spawn_point.get_node(str(id)).queue_free()
+
 	if ping_timer != null:
 		ping_timer.queue_free()
 	

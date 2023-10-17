@@ -9,7 +9,7 @@
 [node name="UI" parent="." instance=ExtResource("2_pcn1c")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn", "res://bullet.tscn")
+_spawnable_scenes = PackedStringArray("res://player.tscn", "res://bullet.tscn", "res://missile.tscn")
 spawn_path = NodePath("../SpawnPoint")
 
 [node name="SpawnPoint" type="Node2D" parent="."]

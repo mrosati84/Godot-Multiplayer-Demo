@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 400
 @export var bullet : PackedScene
+@export var missile : PackedScene
 @export var life : int = 100
 @export var alive : bool = true
 
@@ -25,6 +26,8 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("fire") and is_multiplayer_authority() and alive:
 		ServerFunctions.rpc_id(SERVER, "fire")
+	if Input.is_action_just_pressed("fire_special") and is_multiplayer_authority() and alive:
+		ServerFunctions.rpc_id(SERVER, "fire_special")
 
 func _physics_process(_delta):
 	if is_multiplayer_authority() and alive:
