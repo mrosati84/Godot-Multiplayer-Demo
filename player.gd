@@ -15,7 +15,7 @@ const SERVER : int = 1
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
-
+	
 func _ready():
 	id_label.text = str(multiplayer.get_unique_id())
 	

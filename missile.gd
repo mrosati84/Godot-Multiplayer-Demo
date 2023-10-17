@@ -22,18 +22,25 @@ func select_random_enemy():
 
 func _physics_process(delta):
 	if multiplayer.is_server():
-		if target_enemy and target_enemy.is_inside_tree() and target_enemy.alive: # Controlla se l'obiettivo esiste e fa ancora parte dell'albero della scena
+		# Controlla se l'obiettivo esiste e fa ancora parte dell'albero della scena		
+		# se è vivo e che non sia chi ha sparato
+		if target_enemy \
+		and target_enemy.is_inside_tree() \
+		and target_enemy.alive \
+		and target_enemy.name != sender: 
 			var direction = (target_enemy.global_position - global_position).normalized()
-			
-			# Calcola l'angolo tra la posizione del missile e la posizione del nemico
 			var angle_to_target = atan2(direction.y, direction.x)
 			
-			# Imposta la rotazione del missile sull'angolo calcolato
+			# il missile segue l'obiettivo
 			rotation = angle_to_target
-			
 			position += direction * speed * delta
 		else:
 			select_random_enemy() # Seleziona un nuovo nemico se l'obiettivo attuale non è valido
+			
+			#@TODO
+			# Fai esplodere il missile se nessun nemico è _più_ disponibile
+#			if multiplayer.is_server():
+#				despawn_missile.rpc()
 			
 func _on_timer_timeout():
 	if multiplayer.is_server():
